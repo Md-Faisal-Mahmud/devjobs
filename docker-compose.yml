@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+    api:
+        build: 
+            context: .
+            dockerfile: src\DevJobs.Api\Dockerfile
+        image: devjobsapi
+        env_file: 
+            - Env/api.env
+        container_name: devjobsapi-container
+        ports:
+          - "8080:80"
+          - "8081:81" 
+        volumes:
+          - "api-volume:/app/Logs"
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+        entrypoint: ["dotnet", "DevJobs.Api.dll"]
+volumes:
+    api-volume:
+        external: true
